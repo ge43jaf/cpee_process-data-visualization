@@ -371,32 +371,17 @@ function WFAdaptorManifestation(adaptor) {
 
         // For Blue Points
         let dict = {};
-
         $('arguments > *',$(node).children('parameters')).each(function(i, ele){
-          console.log("第一段");
-          console.log(i);
-          console.log(typeof(ele));
-          console.log(ele);
-          console.log("innerHTML : " + ele.innerHTML);
-
           let arr = ele.innerHTML.split(/ +/);
-          console.log("arr ele.innerHTML :" + arr);
           var regex = /!data.[a-zA-Z]*/;
           var regex_exclm = /!?data.[a-zA-Z]*/;
           //  var regex1 = /(==|!=|>=|<=|>|<)/;                          // >=, <= before >, < for full recognization
           var regex1 = /(==|!=|&gt;=|&lt;=|&gt;|&lt;)/;
           var regex2 = /(=|\+\=|\-\=|\*\=|\/\=|<<|>>)/;
-
           if(arr != null) {
-              for (let j = 0; j < arr.length; j++) {
-                console.log(arr[j]);
-              }
               if(arr[0].charAt(0) == '!') {
-                console.log("match 0");
-                console.log("substring : " + arr[0].substring(1));
                 let key = arr[0].substring(6);
                 dict[key] = "Read";
-                console.log(JSON.stringify(dict, null, 4));
               } else if(arr[1] != null) {
                 if(arr[1].match(regex1) != null && arr[1].match(regex1).length > 0) {
                   if(arr[0] != undefined && regex_exclm.test(arr[0])) {
@@ -406,13 +391,11 @@ function WFAdaptorManifestation(adaptor) {
                   if(arr[2] != undefined && regex_exclm.test(arr[2])) {
                     let arg2 = arr[2].substring(5);
                     if (dict[arg2] == "Assign") {
-                      console.log(" Read Assign ==> Read Read");
                       dict[arg2] = "AssignRead";
                     } else {
                       dict[arg2] = "Read";
                     }
                   }
-                  console.log(JSON.stringify(dict, null, 4));
                 } else if(arr[1].match(regex2) != null && arr[1].match(regex2).length > 0) {
                   if(arr[0] != undefined && regex_exclm.test(arr[0])) {
                     let arg1 = arr[0].substring(5);
@@ -421,7 +404,6 @@ function WFAdaptorManifestation(adaptor) {
                   if(arr[2] != undefined && regex_exclm.test(arr[2])) {
                     let arg2 = arr[2].substring(5);
                     if (dict[arg2] == "Assign") {
-                      console.log(" .... Assign ==> Assign Read");
                       dict[arg2] = "AssignRead";
                     } else {
                       dict[arg2] = "Read";
@@ -430,16 +412,10 @@ function WFAdaptorManifestation(adaptor) {
                 }
               }
             }
-
         });
-
         $(node).children('code').children().each(function(i, ele){
-          console.log("第二段");
-          console.log(ele);
-          console.log("innerHTML : " + ele.innerHTML);
           var arrOut = ele.innerHTML.split("\n");
           for (let i = 0; i < arrOut.length; i++) {
-            console.log("arrOut "+ i + " :" + arrOut[i]);
             let arr = arrOut[i].split(/ +/);
             var regex = /!data.[a-zA-Z]*/;
             var regex_exclm = /!?data.[a-zA-Z]*/;
@@ -447,15 +423,9 @@ function WFAdaptorManifestation(adaptor) {
             var regex1 = /(==|!=|&gt;=|&lt;=|&gt;|&lt;)/;
             var regex2 = /(=|\+\=|\-\=|\*\=|\/\=|<<|>>)/;
             if(arr != null) {
-              for (let j = 0; j < arr.length; j++) {
-                console.log(arr[j]);
-              }
               if(arr[0].charAt(0) == '!') {
-                console.log("match 0");
-                console.log("substring : " + arr[0].substring(1));
                 let key = arr[0].substring(6);
                 dict[key] = "Read";
-                console.log(JSON.stringify(dict, null, 4));
               } else if(arr[1] != null) {
                 if(arr[1].match(regex1) != null && arr[1].match(regex1).length > 0) {
                   if(arr[0] != undefined && regex_exclm.test(arr[0])) {
@@ -465,13 +435,11 @@ function WFAdaptorManifestation(adaptor) {
                   if(arr[2] != undefined && regex_exclm.test(arr[2])) {
                     let arg2 = arr[2].substring(5);
                     if (dict[arg2] == "Assign") {
-                      console.log(" Read Assign ==> Read Read");
                       dict[arg2] = "AssignRead";
                     } else {
                       dict[arg2] = "Read";
                     }
                   }
-                  console.log(JSON.stringify(dict, null, 4));
                 } else if(arr[1].match(regex2) != null && arr[1].match(regex2).length > 0) {
                   if(arr[0] != undefined && regex_exclm.test(arr[0])) {
                     let arg1 = arr[0].substring(5);
@@ -480,7 +448,6 @@ function WFAdaptorManifestation(adaptor) {
                   if(arr[2] != undefined && regex_exclm.test(arr[2])) {
                     let arg2 = arr[2].substring(5);
                     if (dict[arg2] == "Assign") {
-                      console.log(" .... Assign ==> Assign Read");
                       dict[arg2] = "AssignRead";
                     } else {
                       dict[arg2] = "Read";
@@ -490,14 +457,9 @@ function WFAdaptorManifestation(adaptor) {
               }
             }
           }
-
         });
-
         let str = ' ';
-
         ret.push({ column: 'Star', value: dict, type: 'resource' });
-
-
         if (lab != '') {
           ret.unshift( { column: 'Label', value: lab } );
         }
@@ -565,10 +527,6 @@ function WFAdaptorManifestation(adaptor) {
         }  else {
           return [ { column: 'ID', value: $(node).attr('id') } ];
         }
-
-
-
-        console.log("manipulate :");
       },
       'svg': self.adaptor.theme_dir + 'symbols/manipulate.svg'
     },//}}}
@@ -909,7 +867,6 @@ function WFAdaptorManifestation(adaptor) {
         if (avg != '') {
           ret.push({ column: 'Average', value: avg + '%' });
         }
-
         let dict = {};
 
         $(node).attr('condition', function(ele){
@@ -919,15 +876,9 @@ function WFAdaptorManifestation(adaptor) {
           var regex1 = /(==|!=|>=|<=|>|<)/;          //  Not '&gt;' or '&lt;' here for condition!
           var regex2 = /(=|\+\=|\-\=|\*\=|\/\=|<<|>>)/;
             if(arr != null) {
-              for (let j = 0; j < arr.length; j++) {
-                console.log(arr[j]);
-              }
               if(arr[0].charAt(0) == '!') {
-                console.log("match 0");
-                console.log("substring : " + arr[0].substring(1));
                 let key = arr[0].substring(6);
                 dict[key] = "Read";
-                console.log(JSON.stringify(dict, null, 4));
               } else if(arr[1] != null) {
                 if(arr[1].match(regex1) != null && arr[1].match(regex1).length > 0) {
                   if(arr[0] != undefined && regex_exclm.test(arr[0])) {
@@ -937,13 +888,11 @@ function WFAdaptorManifestation(adaptor) {
                   if(arr[2] != undefined && regex_exclm.test(arr[2])) {
                     let arg2 = arr[2].substring(5);
                     if (dict[arg2] == "Assign") {
-                      console.log(" Read Assign ==> Read Read");
                       dict[arg2] = "AssignRead";
                     } else {
                       dict[arg2] = "Read";
                     }
                   }
-                  console.log(JSON.stringify(dict, null, 4));
                 } else if(arr[1].match(regex2) != null && arr[1].match(regex2).length > 0) {
                   if(arr[0] != undefined && regex_exclm.test(arr[0])) {
                     let arg1 = arr[0].substring(5);
@@ -952,7 +901,6 @@ function WFAdaptorManifestation(adaptor) {
                   if(arr[2] != undefined && regex_exclm.test(arr[2])) {
                     let arg2 = arr[2].substring(5);
                     if (dict[arg2] == "Assign") {
-                      console.log(" .... Assign ==> Assign Read");
                       dict[arg2] = "AssignRead";
                     } else {
                       dict[arg2] = "Read";
@@ -961,11 +909,9 @@ function WFAdaptorManifestation(adaptor) {
                 }
               }
             }
-
-        let str = ' ';
-        ret.push({ column: 'Star', value: dict, type: 'resource' });
+            let str = ' ';
+            ret.push({ column: 'Star', value: dict, type: 'resource' });
         });
-
         return ret;
       },
       'endnodes': 'passthrough',
@@ -1600,23 +1546,15 @@ function WFAdaptorManifestation(adaptor) {
         let dict = {};
         $(node).attr('condition', function(ele){
           let arr = $(this).attr("condition").split(/ +/);
-          console.log("arr :" + arr[1]);
-
           var regex = /!data.[a-zA-Z]*/;
           var regex_exclm = /!?data.[a-zA-Z]*/;
           var regex1 = /(==|!=|>=|<=|>|<)/;          //  Not '&gt;' or '&lt;' here for condition!
           var regex2 = /(=|\+\=|\-\=|\*\=|\/\=|<<|>>)/;
 
           if(arr != null) {
-            for (let j = 0; j < arr.length; j++) {
-              console.log(arr[j]);
-            }
             if(arr[0].charAt(0) == '!') {
-              console.log("match 0");
-              console.log("substring : " + arr[0].substring(1));
               let key = arr[0].substring(6);
               dict[key] = "Read";
-              console.log(JSON.stringify(dict, null, 4));
             } else if(arr[1] != null) {
               if(arr[1].match(regex1) != null && arr[1].match(regex1).length > 0) {
                 if(arr[0] != undefined && regex_exclm.test(arr[0])) {
@@ -1626,13 +1564,11 @@ function WFAdaptorManifestation(adaptor) {
                 if(arr[2] != undefined && regex_exclm.test(arr[2])) {
                   let arg2 = arr[2].substring(5);
                   if (dict[arg2] == "Assign") {
-                    console.log(" Read Assign ==> Read Read");
                     dict[arg2] = "AssignRead";
                   } else {
                     dict[arg2] = "Read";
                   }
                 }
-                console.log(JSON.stringify(dict, null, 4));
               } else if(arr[1].match(regex2) != null && arr[1].match(regex2).length > 0) {
                 if(arr[0] != undefined && regex_exclm.test(arr[0])) {
                   let arg1 = arr[0].substring(5);
@@ -1641,7 +1577,6 @@ function WFAdaptorManifestation(adaptor) {
                 if(arr[2] != undefined && regex_exclm.test(arr[2])) {
                   let arg2 = arr[2].substring(5);
                   if (dict[arg2] == "Assign") {
-                    console.log(" .... Assign ==> Assign Read");
                     dict[arg2] = "AssignRead";
                   } else {
                     dict[arg2] = "Read";
@@ -1651,9 +1586,7 @@ function WFAdaptorManifestation(adaptor) {
             }
           }
           ret.push({ column: 'Star', value: dict, type: 'resource' });
-
         });
-
         return ret;
       },
     }//}}}
