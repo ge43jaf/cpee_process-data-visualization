@@ -8,7 +8,6 @@ function WFAdaptorManifestation(adaptor) {
   var bluePoint = '<svg width="14" height="14" xmlns="http://www.w3.org/2000/svg"><circle cx="7" cy="7" r="5" fill="blue"/></svg>';
   var blackPoint = $('<svg width="14" height="14" xmlns="http://www.w3.org/2000/svg"><circle cx="7" cy="7" r="5" fill="black"/></svg>');
   var blankPoint = '<svg width="14" height="14" xmlns="http://www.w3.org/2000/svg"><circle cx="7" cy="7" r="5" fill=background-color fill-opacity="0.1"/></svg>';
-
   //const mapPoints = new Map();
 
   this.adaptor = adaptor;
@@ -428,11 +427,8 @@ function WFAdaptorManifestation(adaptor) {
                       dict[arg2] = "Read";
                     }
                   }
-                  console.log(JSON.stringify(dict, null, 4));
                 }
-
               }
- //           console.log("dict data.airline :" + dict["data.airline"]);
             }
 
         });
@@ -490,10 +486,8 @@ function WFAdaptorManifestation(adaptor) {
                       dict[arg2] = "Read";
                     }
                   }
-                  console.log(JSON.stringify(dict, null, 4));
                 }
               }
- //           console.log("dict data.airline :" + dict["data.airline"]);
             }
           }
 
@@ -501,32 +495,6 @@ function WFAdaptorManifestation(adaptor) {
 
         let str = ' ';
 
-        console.log("dictionary i for :");
-
-        for (const [key, value] of Object.entries(dict)) {
-          console.log(`${key}: ${value}`);
-  //        mapPoints.set(key, value);
-        }
-/*
-        for (const [key, value] of mapPoints) {
-          str += '<span title="';
-          str += key;
-          str += '">';
-          if(key in dict) {
-            if (value == "Read") {
-              str += greenPoint;
-            } else if (value == "Assign") {
-              str += orangePoint;
-            } else if (value == "AssignRead") {
-              str += bluePoint;
-            }
-            str += '</span>';
-          } else {
-            str += blankPoint;
-          }
-        }
-*/
-        console.log("dict in call :" + dict);
         ret.push({ column: 'Star', value: dict, type: 'resource' });
 
 
@@ -942,22 +910,10 @@ function WFAdaptorManifestation(adaptor) {
           ret.push({ column: 'Average', value: avg + '%' });
         }
 
-
         let dict = {};
 
         $(node).attr('condition', function(ele){
           let arr = $(this).attr("condition").split(/ +/);
-          console.log("arr :" + arr[1]);
-/*
-          var regex1 = /(==|!=|>|<|>=|<=)/;
-          var regex2 = /(=|\+\=|\-\=|\*\=|\/\=|<<)/;
-
-          if(arr[1].match(regex1) != null && arr[1].match(regex1).length > 0) {
-            ret.push({ column: 'Star', value: orangePoint, type: 'resource' });
-          } else if(arr[1].match(regex2) != null && arr[1].match(regex2).length > 0) {
-            ret.push({ column: 'Star', value: greenPoint, type: 'resource' });
-          }
-*/
           var regex = /!data.[a-zA-Z]*/;
           var regex_exclm = /!?data.[a-zA-Z]*/;
           var regex1 = /(==|!=|>=|<=|>|<)/;          //  Not '&gt;' or '&lt;' here for condition!
@@ -1002,51 +958,13 @@ function WFAdaptorManifestation(adaptor) {
                       dict[arg2] = "Read";
                     }
                   }
-                  console.log(JSON.stringify(dict, null, 4));
                 }
               }
- //           console.log("dict data.airline :" + dict["data.airline"]);
             }
-
 
         let str = ' ';
-
-        console.log("ddddddddddddddictionary i for :");
-        for (const [key, value] of Object.entries(dict)) {
-          console.log(`${key}: ${value}`);
- //         mapPoints.set(key, value);
-        }
-/*
-        for (const [key, value] of mapPoints) {
-          str += '<span title="';
-          str += key;
-          str += '">';
-          if(key in dict) {
-            if (value == "Read") {
-              str += greenPoint;
-            } else if (value == "Assign") {
-              str += orangePoint;
-            } else if (value == "AssignRead") {
-              str += bluePoint;
-            }
-            str += '</span>';
-          } else {
-            str += blankPoint;
-          }
-        }
-        console.log(str);
-*/
-        console.log("dict in alternative :" + dict);
         ret.push({ column: 'Star', value: dict, type: 'resource' });
-
-
-      //    console.log("children children");
-      //    console.log("children ele : " + $(this).attr("condition"));
-
         });
-        //  console.log("children ele : " + $(this).attr("condition"));
-
-
 
         return ret;
       },
@@ -1729,50 +1647,12 @@ function WFAdaptorManifestation(adaptor) {
                     dict[arg2] = "Read";
                   }
                 }
-                console.log(JSON.stringify(dict, null, 4));
               }
             }
           }
-/*
-          let str = ' ';
-
-          console.log("dictionary i for :");
-
-          for (const [key, value] of Object.entries(dict)) {
-            console.log(`${key}: ${value}`);
-            mapPoints.set(key, value);
-          }
-
-          for (const [key, value] of mapPoints) {
-            str += '<span title="';
-            str += key;
-            str += '">';
-            if(key in dict) {
-              if (value == "Read") {
-               str += greenPoint;
-              } else if (value == "Assign") {
-                str += orangePoint;
-              } else if (value == "AssignRead") {
-                str += bluePoint;
-              }
-              str += '</span>';
-            } else {
-              str += blankPoint;
-            }
-          }
-*/
-          console.log("dict in loop_head :" + dict);
           ret.push({ column: 'Star', value: dict, type: 'resource' });
 
-          console.log("loop_head");
-
-
-        //  console.log("children children");
-        //  console.log("children ele : " + $(this).attr("condition"));
-
         });
-        //  console.log("children ele : " + $(this).attr("condition"));
-
 
         return ret;
       },
