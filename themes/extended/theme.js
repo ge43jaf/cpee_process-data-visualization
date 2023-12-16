@@ -1,15 +1,6 @@
 function WFAdaptorManifestation(adaptor) {
   var self = this;
 
-  // Self added
-  var greenPoint = '<svg width="14" height="14" xmlns="http://www.w3.org/2000/svg"><circle cx="7" cy="7" r="5" fill="green"/></svg>';
-  var orangePoint = '<svg width="14" height="14" xmlns="http://www.w3.org/2000/svg"><circle cx="7" cy="7" r="5" fill="orange"/></svg>';
-  //  var bluePoint = '<span title="aaaa"><svg width="14" height="14" xmlns="http://www.w3.org/2000/svg"><circle cx="7" cy="7" r="5" fill="blue"/></svg></span>';
-  var bluePoint = '<svg width="14" height="14" xmlns="http://www.w3.org/2000/svg"><circle cx="7" cy="7" r="5" fill="blue"/></svg>';
-  var blackPoint = $('<svg width="14" height="14" xmlns="http://www.w3.org/2000/svg"><circle cx="7" cy="7" r="5" fill="black"/></svg>');
-  var blankPoint = '<svg width="14" height="14" xmlns="http://www.w3.org/2000/svg"><circle cx="7" cy="7" r="5" fill=background-color fill-opacity="0.1"/></svg>';
-  //const mapPoints = new Map();
-
   this.adaptor = adaptor;
   this.resources = {};
   this.elements = {};
